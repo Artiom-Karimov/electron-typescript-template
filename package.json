@@ -12,7 +12,7 @@
     "test:watch": "jest --watch",
     "lint": "eslint \"{src}/**/*.ts\" --fix",
     "clean:dist": "rimraf dist/",
-    "copy:files": "copyfiles -u 1 src/**/*.html src/**/*.css src/**/*.svg dist/"
+    "copy:files": "copyfiles -u 1 src/**/*.html src/**/*.css src/**/*.svg src/assets/**/* dist/"
   },
   "author": "Artiom Karimov",
   "license": "MIT",
