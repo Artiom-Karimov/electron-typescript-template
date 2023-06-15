@@ -5,14 +5,21 @@
   "description": "ready-to-start typescript electron template",
   "main": "./dist/backend/main.js",
   "scripts": {
-    "build": "npm run clean:dist && tsc && npm run copy:files",
+    "build": "npm run clean:dist && tsc && npm run copy:all",
     "start": "npm run build && electron ./dist/backend/main.js",
+    "dev": "npm run build && concurrently --kill-others \"npm run watch:tsc\" \"npm run watch:main\" \"npm run watch:views\" \"npm run watch:assets\"",
     "make": "npm run build && electron-builder",
     "test": "jest",
     "test:watch": "jest --watch",
     "lint": "eslint \"{src}/**/*.ts\" --fix",
+    "watch:tsc": "tsc -w",
+    "watch:main": "npx nodemon --watch ./dist/backend/* --exec electron ./dist/backend/main.js",
+    "watch:views": "npx nodemon -e \"*\" --watch ./src/views/* --exec npm run copy:views",
+    "watch:assets": "npx nodemon -e \"*\" --watch ./src/assets/* --exec npm run copy:assets",
     "clean:dist": "rimraf dist/",
-    "copy:files": "copyfiles -u 1 src/**/*.html src/**/*.css src/**/*.svg src/assets/**/* dist/"
+    "copy:all": "npm run copy:views && npm run copy:assets",
+    "copy:views": "rimraf ./dist/views && copyfiles -u 1 ./src/views/**/*.html ./src/views/**/*.css ./dist/",
+    "copy:assets": "rimraf ./dist/assets && copyfiles -u 1 ./src/assets/**/* ./dist/"
   },
   "author": "Artiom Karimov",
   "license": "MIT",
@@ -23,6 +30,7 @@
   "devDependencies": {
     "@types/electron": "^1.6.10",
     "@types/jest": "^29.5.2",
+    "concurrently": "^8.2.0",
     "copyfiles": "^2.4.1",
     "electron": "^25.1.0",
     "electron-builder": "^23.6.0",
