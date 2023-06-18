@@ -18,7 +18,7 @@
     "watch:assets": "npx nodemon -e \"*\" --watch ./src/assets/* --exec npm run copy:assets",
     "clean:dist": "rimraf dist/",
     "copy:all": "npm run copy:views && npm run copy:assets",
-    "copy:views": "rimraf ./dist/views && copyfiles -u 1 ./src/views/**/*.html ./src/views/**/*.css ./dist/",
+    "copy:views": "copyfiles -u 1 ./src/views/**/*.html ./src/views/**/*.css ./dist/",
     "copy:assets": "rimraf ./dist/assets && copyfiles -u 1 ./src/assets/**/* ./dist/"
   },
   "author": "Artiom Karimov",
